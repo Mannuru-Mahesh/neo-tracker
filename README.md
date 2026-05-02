@@ -1,73 +1,102 @@
-# React + TypeScript + Vite
+# 🌍 NEO Tracker — Live Asteroid Orbital Monitor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> An interactive 3D Earth globe that maps real NASA Near Earth Objects in orbit — built with Three.js and live NASA API data.
 
-Currently, two official plugins are available:
+**🔗 Live Site → [https://mannuru-mahesh.github.io/neo-tracker/](https://mannuru-mahesh.github.io/neo-tracker/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+![NEO Tracker Preview](https://raw.githubusercontent.com/Mannuru-Mahesh/neo-tracker/main/src/assets/hero.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🌐 **Photorealistic 3D Earth** — High-res NASA textures with animated cloud layer and atmospheric glow
+- ☄️ **Live NASA NEO Data** — Fetches today's real Near Earth Objects from the [NASA NEO API](https://api.nasa.gov/) every time you load the app
+- 🔴 **Hazard Classification** — Red asteroids are flagged as *Potentially Hazardous* by NASA, green ones are on safe trajectories
+- 📡 **Telemetry Sidebar** — Click any asteroid to instantly see its velocity, estimated diameter, and miss distance from Earth
+- 🎯 **Easy Clicking** — Each asteroid has an invisible enlarged hit zone so you can easily select them even while they're moving
+- ⏸️ **Hover to Pause** — Asteroids pause their orbit when you hover over them so you never lose track
+- 💥 **Bloom Post-Processing** — Cinematic glow effects powered by `@react-three/postprocessing`
+- ⭐ **Animated Star Field** — 5,000 stars with depth and fade effects fill the space environment
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Technology | Purpose |
+|---|---|
+| [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) | UI & type safety |
+| [Three.js](https://threejs.org/) | 3D rendering engine |
+| [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) | React renderer for Three.js |
+| [@react-three/drei](https://github.com/pmndrs/drei) | Three.js helpers (Stars, OrbitControls, Html) |
+| [@react-three/postprocessing](https://github.com/pmndrs/react-postprocessing) | Bloom & post-processing effects |
+| [NASA NEO API](https://api.nasa.gov/) | Live asteroid data |
+| [Vite](https://vite.dev/) | Build tool & dev server |
+| [GitHub Pages](https://pages.github.com/) | Free hosting & CI/CD via GitHub Actions |
+
+---
+
+## 🚀 Run Locally
+
+```bash
+git clone https://github.com/Mannuru-Mahesh/neo-tracker.git
+cd neo-tracker
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open **[http://localhost:5173/](http://localhost:5173/)** in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🎮 Controls
+
+| Action | Result |
+|---|---|
+| **Click + Drag** | Rotate the globe |
+| **Scroll** | Zoom in / out |
+| **Hover** asteroid | Pauses its orbit |
+| **Click** asteroid | Shows telemetry in sidebar |
+
+---
+
+## 📡 Data Source
+
+All asteroid data is fetched live from the **NASA Near Earth Object Web Service (NeoWs)**:
+
 ```
+https://api.nasa.gov/neo/rest/v1/feed?start_date=TODAY&api_key=DEMO_KEY
+```
+
+Each session loads **real objects** tracked by NASA for the current date — including their actual velocity, estimated size, miss distance, and hazard classification.
+
+> The orbital positions around the globe are a stylized artistic representation. The telemetry data (velocity, diameter, miss distance, hazard status) is 100% real NASA data.
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── Earth.tsx          # Photorealistic Earth with textures & clouds
+│   ├── AsteroidField.tsx  # Interactive orbiting asteroid markers
+│   └── Sidebar.tsx        # Glassmorphism telemetry panel
+├── hooks/
+│   └── useNeoData.ts      # NASA API fetch hook with fallback
+├── types.ts               # TypeScript interfaces
+├── App.tsx                # Scene composition
+└── index.css              # Global styles & design tokens
+```
+
+---
+
+## 📜 License
+
+MIT — free to use, fork, and build upon.
+
+---
+
+<p align="center">Made with ☄️ and Three.js</p>
