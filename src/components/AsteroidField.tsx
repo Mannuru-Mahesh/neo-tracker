@@ -68,7 +68,6 @@ const Asteroid = ({
 
   const baseSize = Math.max(data.estimatedDiameterMax * 0.05, 0.02); // scale down size for visual
   const color = data.isHazardous ? '#ef4444' : '#4ade80'; // red if hazardous, else green
-  const emissiveColor = data.isHazardous ? '#991b1b' : '#166534';
 
   const [hovered, setHovered] = useState(false);
 
